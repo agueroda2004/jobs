@@ -9,6 +9,7 @@ interface ApplicationFormProps {
   initial?: Application;
   onSubmit: (data: {
     company: string;
+    position: string;
     date: string;
     status: ApplicationStatus;
     url: string;
@@ -17,6 +18,7 @@ interface ApplicationFormProps {
 
 interface Errors {
   company?: string;
+  position?: string;
   date?: string;
   url?: string;
 }
@@ -32,6 +34,7 @@ function isValidUrl(value: string): boolean {
 
 export default function ApplicationForm({ initial, onSubmit }: ApplicationFormProps) {
   const [company, setCompany] = useState(initial?.company ?? "");
+  const [position, setPosition] = useState(initial?.position ?? "");
   const [date, setDate] = useState(initial?.date ?? toISO(new Date()));
   const [status, setStatus] = useState<ApplicationStatus>(
     initial?.status ?? DEFAULT_STATUS,
@@ -42,6 +45,7 @@ export default function ApplicationForm({ initial, onSubmit }: ApplicationFormPr
   function validate(): Errors {
     const next: Errors = {};
     if (!company.trim()) next.company = "El nombre de la empresa es obligatorio.";
+    if (!position.trim()) next.position = "El nombre del puesto es obligatorio.";
     if (!date) next.date = "La fecha de aplicación es obligatoria.";
     if (url.trim() && !isValidUrl(url.trim())) {
       next.url = "Ingresa una URL válida (debe comenzar con http:// o https://).";
@@ -56,6 +60,7 @@ export default function ApplicationForm({ initial, onSubmit }: ApplicationFormPr
     if (Object.keys(next).length > 0) return;
     onSubmit({
       company: company.trim(),
+      position: position.trim(),
       date,
       status,
       url: url.trim(),
@@ -85,6 +90,30 @@ export default function ApplicationForm({ initial, onSubmit }: ApplicationFormPr
         />
         {errors.company && (
           <p className="mt-1.5 text-xs text-red-600">{errors.company}</p>
+        )}
+      </div>
+
+      <div>
+        <label
+          htmlFor="position"
+          className="mb-1.5 block text-sm font-medium text-neutral-700"
+        >
+          Puesto
+        </label>
+        <input
+          id="position"
+          type="text"
+          value={position}
+          onChange={(e) => setPosition(e.target.value)}
+          placeholder="Ej. Desarrollador Frontend"
+          className={`h-11 w-full rounded-xl border-2 bg-white px-4 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 ${
+            errors.position
+              ? "border-red-400 focus:border-red-500"
+              : "border-neutral-200 hover:border-neutral-300 focus:border-neutral-900"
+          }`}
+        />
+        {errors.position && (
+          <p className="mt-1.5 text-xs text-red-600">{errors.position}</p>
         )}
       </div>
 

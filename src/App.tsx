@@ -63,6 +63,7 @@ export default function App() {
 
   function handleSubmit(data: {
     company: string;
+    position: string;
     date: string;
     status: ApplicationStatus;
     url: string;

@@ -8,6 +8,7 @@ export type ApplicationStatus =
 export interface Application {
   id: string;
   company: string;
+  position: string;
   date: string;
   status: ApplicationStatus;
   url: string;

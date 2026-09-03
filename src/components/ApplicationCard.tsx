@@ -29,6 +29,11 @@ export default function ApplicationCard({
             compact
           />
         </div>
+        {application.position && (
+          <p className="mt-0.5 truncate text-sm font-medium text-neutral-600">
+            {application.position}
+          </p>
+        )}
         <p className="mt-1.5 text-sm text-neutral-500">
           Aplicaste el {formatLongDate(application.date)}
         </p>
