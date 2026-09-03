@@ -12,7 +12,10 @@ import ApplicationForm from "./components/ApplicationForm";
 import ToastContainer from "./components/ToastContainer";
 import Modal from "./components/ui/Modal";
 import ConfirmDialog from "./components/ui/ConfirmDialog";
+import Pagination from "./components/ui/Pagination";
 import { PlusIcon } from "./components/ui/icons";
+
+const PAGE_SIZE = 20;
 
 export default function App() {
   const {
@@ -29,6 +32,7 @@ export default function App() {
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<Application | undefined>(undefined);
   const [deleting, setDeleting] = useState<Application | undefined>(undefined);
+  const [page, setPage] = useState(1);
 
   const counts = useMemo(() => {
     const base = Object.fromEntries(
@@ -50,6 +54,29 @@ export default function App() {
       return sort === "asc" ? diff : -diff;
     });
   }, [applications, search, statusFilter, sort]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+
+  const visibleItems = filtered.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE,
+  );
+
+  function handleSearchChange(value: string) {
+    setSearch(value);
+    setPage(1);
+  }
+
+  function handleStatusFilterChange(value: StatusFilter) {
+    setStatusFilter(value);
+    setPage(1);
+  }
+
+  function handleSortChange(value: SortOrder) {
+    setSort(value);
+    setPage(1);
+  }
 
   function openCreate() {
     setEditing(undefined);
@@ -118,11 +145,11 @@ export default function App() {
         <section className="mb-8">
           <FilterBar
             search={search}
-            onSearchChange={setSearch}
+            onSearchChange={handleSearchChange}
             statusFilter={statusFilter}
-            onStatusFilterChange={setStatusFilter}
+            onStatusFilterChange={handleStatusFilterChange}
             sort={sort}
-            onSortChange={setSort}
+            onSortChange={handleSortChange}
             counts={counts}
           />
         </section>
@@ -162,7 +189,7 @@ export default function App() {
             <p className="text-sm text-neutral-500">
               {filtered.length} {filtered.length === 1 ? "postulación" : "postulaciones"}
             </p>
-            {filtered.map((app) => (
+            {visibleItems.map((app) => (
               <ApplicationCard
                 key={app.id}
                 application={app}
@@ -171,6 +198,16 @@ export default function App() {
                 onDelete={setDeleting}
               />
             ))}
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              totalItems={filtered.length}
+              pageSize={PAGE_SIZE}
+              onPageChange={(p) => {
+                setPage(p);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            />
           </div>
         )}
       </main>
