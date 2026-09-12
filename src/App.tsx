@@ -45,6 +45,7 @@ function Jobs() {
     createApplication,
     updateApplication,
     deleteApplication,
+    loading,
   } = useApplications();
   const { toasts, show, dismiss } = useToast();
   const navigate = useNavigate();
@@ -86,6 +87,14 @@ function Jobs() {
     (currentPage - 1) * PAGE_SIZE,
     currentPage * PAGE_SIZE,
   );
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-neutral-50 text-sm text-neutral-500">
+        Loading applications...
+      </div>
+    );
+  }
 
   function handleSearchChange(value: string) {
     setSearch(value);

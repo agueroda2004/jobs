@@ -12,8 +12,8 @@ export interface Application {
   date: string;
   status: ApplicationStatus;
   url: string;
-  createdAt: number;
-  updatedAt: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export type ToastType = "success" | "error" | "info";
