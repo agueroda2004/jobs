@@ -1,8 +1,12 @@
 import { useMemo, useState } from "react";
 import type { Application, ApplicationStatus } from "./types";
+import { HashRouter, Route, Routes, useNavigate } from "react-router-dom";
 import { STATUSES, STATUS_ORDER } from "./constants/statuses";
 import { useApplications } from "./hooks/useApplications";
 import { useToast } from "./hooks/useToast";
+import { logout } from "./shared/auth";
+import AuthGuard from "./features/auth/components/AuthGuard";
+import LoginPage from "./features/auth/page/LoginPage";
 import FilterBar, {
   type SortOrder,
   type StatusFilter,
@@ -13,11 +17,29 @@ import ToastContainer from "./components/ToastContainer";
 import Modal from "./components/ui/Modal";
 import ConfirmDialog from "./components/ui/ConfirmDialog";
 import Pagination from "./components/ui/Pagination";
-import { PlusIcon } from "./components/ui/icons";
+import { LogOutIcon, PlusIcon } from "./components/ui/icons";
 
 const PAGE_SIZE = 20;
 
 export default function App() {
+  return (
+    <HashRouter>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="*"
+          element={
+            <AuthGuard>
+              <Jobs />
+            </AuthGuard>
+          }
+        />
+      </Routes>
+    </HashRouter>
+  );
+}
+
+function Jobs() {
   const {
     applications,
     createApplication,
@@ -25,6 +47,7 @@ export default function App() {
     deleteApplication,
   } = useApplications();
   const { toasts, show, dismiss } = useToast();
+  const navigate = useNavigate();
 
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("todas");
@@ -35,9 +58,10 @@ export default function App() {
   const [page, setPage] = useState(1);
 
   const counts = useMemo(() => {
-    const base = Object.fromEntries(
-      STATUS_ORDER.map((s) => [s, 0]),
-    ) as Record<ApplicationStatus, number>;
+    const base = Object.fromEntries(STATUS_ORDER.map((s) => [s, 0])) as Record<
+      ApplicationStatus,
+      number
+    >;
     for (const app of applications) base[app.status] += 1;
     return base;
   }, [applications]);
@@ -83,6 +107,11 @@ export default function App() {
     setFormOpen(true);
   }
 
+  function handleLogout() {
+    logout();
+    navigate("/login");
+  }
+
   function openEdit(application: Application) {
     setEditing(application);
     setFormOpen(true);
@@ -124,20 +153,31 @@ export default function App() {
         <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-5 sm:px-6">
           <div>
             <h1 className="text-xl font-bold tracking-tight text-neutral-900">
-              Juniors unidos <span className="text-neutral-400">|</span> Jobs
+              Jobs
             </h1>
             <p className="text-sm text-neutral-500">
               Registra y sigue tus postulaciones de empleo
             </p>
           </div>
-          <button
-            type="button"
-            onClick={openCreate}
-            className="inline-flex items-center gap-2 rounded-xl bg-neutral-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-700"
-          >
-            <PlusIcon className="h-4 w-4" />
-            Nueva postulación
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={openCreate}
+              className="inline-flex items-center gap-2 rounded-xl bg-neutral-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-700"
+            >
+              <PlusIcon className="h-4 w-4" />
+              Nueva postulación
+            </button>
+            <button
+              type="button"
+              onClick={handleLogout}
+              aria-label="Cerrar sesión"
+              title="Cerrar sesión"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-neutral-200 text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-800"
+            >
+              <LogOutIcon className="h-4 w-4" />
+            </button>
+          </div>
         </div>
       </header>
 
@@ -164,7 +204,8 @@ export default function App() {
                 Aún no tienes postulaciones
               </h2>
               <p className="mt-1 text-sm text-neutral-500">
-                Registra tu primera postulación para empezar a seguir tu búsqueda laboral.
+                Registra tu primera postulación para empezar a seguir tu
+                búsqueda laboral.
               </p>
             </div>
             <button
@@ -187,7 +228,8 @@ export default function App() {
         ) : (
           <div className="flex flex-col gap-3">
             <p className="text-sm text-neutral-500">
-              {filtered.length} {filtered.length === 1 ? "postulación" : "postulaciones"}
+              {filtered.length}{" "}
+              {filtered.length === 1 ? "postulación" : "postulaciones"}
             </p>
             {visibleItems.map((app) => (
               <ApplicationCard
