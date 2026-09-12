@@ -130,3 +130,23 @@ export function LogOutIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function EyeIcon(props: IconProps) {
+  return (
+    <svg {...svgProps(props)}>
+      <path d="M2.06 12.35a1 1 0 0 1 0-.7C3.47 7.98 7.36 5.5 12 5.5s8.53 2.48 9.94 6.15a1 1 0 0 1 0 .7C20.53 16.02 16.64 18.5 12 18.5s-8.53-2.48-9.94-6.15Z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
+
+export function EyeOffIcon(props: IconProps) {
+  return (
+    <svg {...svgProps(props)}>
+      <path d="m3 3 18 18" />
+      <path d="M10.58 10.58a2 2 0 0 0 2.83 2.83" />
+      <path d="M9.36 5.36A10.6 10.6 0 0 1 12 5c4.64 0 8.53 2.48 9.94 6.15a1 1 0 0 1 0 .7 10.7 10.7 0 0 1-3.06 4.1" />
+      <path d="M6.23 6.23a10.7 10.7 0 0 0-4.17 4.92 1 1 0 0 0 0 .7C3.47 15.52 7.36 18 12 18c1.61 0 3.13-.34 4.5-.94" />
+    </svg>
+  );
+}
