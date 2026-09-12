@@ -43,7 +43,7 @@ export default function ToastContainer({ toasts, onDismiss }: ToastContainerProp
               type="button"
               onClick={() => onDismiss(toast.id)}
               className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-neutral-400 transition hover:bg-neutral-100 hover:text-neutral-700"
-              aria-label="Cerrar notificación"
+              aria-label="Close notification"
             >
               <CloseIcon className="h-3.5 w-3.5" />
             </button>

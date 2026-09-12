@@ -37,7 +37,7 @@ export default function FilterBar({
             type="search"
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
-            placeholder="Buscar por empresa..."
+            placeholder="Search by company..."
             className="h-11 w-full rounded-xl border-2 border-neutral-200 bg-white pl-10 pr-4 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 hover:border-neutral-300 focus:border-neutral-900"
           />
         </div>
@@ -48,7 +48,7 @@ export default function FilterBar({
           className="flex h-11 items-center gap-2 rounded-xl border-2 border-neutral-200 bg-white px-4 text-sm font-medium text-neutral-700 transition hover:border-neutral-300"
         >
           <ChevronUpDownIcon className="h-4 w-4 text-neutral-500" />
-          {sort === "asc" ? "Más recientes" : "Más antiguas"}
+          {sort === "asc" ? "Oldest" : "Newest"}
         </button>
       </div>
 
@@ -62,7 +62,7 @@ export default function FilterBar({
               : "bg-white text-neutral-600 ring-neutral-300 hover:bg-neutral-50"
           }`}
         >
-          Todas ({total})
+          All ({total})
         </button>
         {STATUS_ORDER.map((status) => (
           <button

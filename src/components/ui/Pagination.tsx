@@ -41,13 +41,13 @@ export default function Pagination({
   return (
     <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-between">
       <p className="text-sm text-neutral-500">
-        Mostrando{" "}
+        Showing{" "}
         <span className="font-medium text-neutral-800">
           {start}–{end}
         </span>{" "}
-        de{" "}
+        of{" "}
         <span className="font-medium text-neutral-800">{totalItems}</span>{" "}
-        {totalItems === 1 ? "postulación" : "postulaciones"}
+        {totalItems === 1 ? "application" : "applications"}
       </p>
 
       <div className="flex items-center gap-1">
@@ -58,7 +58,7 @@ export default function Pagination({
           className="flex h-9 items-center gap-1 rounded-xl border border-neutral-300 px-3 text-sm font-medium text-neutral-700 transition hover:border-neutral-900 hover:text-neutral-900 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-neutral-300 disabled:hover:text-neutral-700"
         >
           <ChevronLeftIcon className="h-4 w-4" />
-          Anterior
+          Previous
         </button>
 
         <div className="mx-1 hidden items-center gap-1 sm:flex">
@@ -90,7 +90,7 @@ export default function Pagination({
           disabled={currentPage === totalPages}
           className="flex h-9 items-center gap-1 rounded-xl border border-neutral-300 px-3 text-sm font-medium text-neutral-700 transition hover:border-neutral-900 hover:text-neutral-900 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-neutral-300 disabled:hover:text-neutral-700"
         >
-          Siguiente
+          Next
           <ChevronRightIcon className="h-4 w-4" />
         </button>
       </div>

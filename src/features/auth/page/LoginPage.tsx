@@ -20,7 +20,7 @@ export default function LoginPage() {
     if (ok) {
       navigate("/");
     } else {
-      setError("Usuario o contraseña incorrectos");
+      setError("Incorrect username or password");
     }
   }
 
@@ -32,7 +32,7 @@ export default function LoginPage() {
             Jobs
           </h1>
           <p className="mt-1 text-sm text-neutral-500">
-            Inicia sesión para continuar
+            Sign in to continue
           </p>
         </div>
 
@@ -46,7 +46,7 @@ export default function LoginPage() {
               htmlFor="username"
               className="mb-1.5 block text-sm font-medium text-neutral-700"
             >
-              Usuario
+              Username
             </label>
             <input
               id="username"
@@ -56,7 +56,7 @@ export default function LoginPage() {
                 setUsername(e.target.value);
                 setError("");
               }}
-              placeholder="tu-usuario"
+              placeholder="your-username"
               autoComplete="username"
               required
               className="h-11 w-full rounded-xl border-2 border-neutral-200 bg-white px-4 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 hover:border-neutral-300 focus:border-neutral-900"
@@ -68,7 +68,7 @@ export default function LoginPage() {
               htmlFor="password"
               className="mb-1.5 block text-sm font-medium text-neutral-700"
             >
-              Contraseña
+              Password
             </label>
             <input
               id="password"
@@ -94,7 +94,7 @@ export default function LoginPage() {
             disabled={submitting}
             className="w-full rounded-xl bg-neutral-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-700 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {submitting ? "Ingresando…" : "Iniciar sesión"}
+            {submitting ? "Signing in…" : "Sign in"}
           </button>
         </form>
       </div>

@@ -9,31 +9,31 @@ export interface StatusConfig {
 
 export const STATUSES: Record<ApplicationStatus, StatusConfig> = {
   enviada: {
-    label: "Enviada",
+    label: "Sent",
     badge: "bg-zinc-100 text-zinc-700 ring-zinc-300",
     dot: "bg-zinc-500",
     selectOption: "bg-zinc-100 text-zinc-700",
   },
   en_revision: {
-    label: "En revisión",
+    label: "In review",
     badge: "bg-blue-50 text-blue-700 ring-blue-300",
     dot: "bg-blue-500",
     selectOption: "bg-blue-50 text-blue-700",
   },
   entrevista: {
-    label: "Entrevista",
+    label: "Interview",
     badge: "bg-amber-50 text-amber-700 ring-amber-300",
     dot: "bg-amber-500",
     selectOption: "bg-amber-50 text-amber-700",
   },
   oferta: {
-    label: "Oferta",
+    label: "Offer",
     badge: "bg-green-50 text-green-700 ring-green-300",
     dot: "bg-green-500",
     selectOption: "bg-green-50 text-green-700",
   },
   rechazada: {
-    label: "Rechazada",
+    label: "Rejected",
     badge: "bg-red-50 text-red-700 ring-red-300",
     dot: "bg-red-500",
     selectOption: "bg-red-50 text-red-700",

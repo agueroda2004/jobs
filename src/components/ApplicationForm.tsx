@@ -44,11 +44,11 @@ export default function ApplicationForm({ initial, onSubmit }: ApplicationFormPr
 
   function validate(): Errors {
     const next: Errors = {};
-    if (!company.trim()) next.company = "El nombre de la empresa es obligatorio.";
-    if (!position.trim()) next.position = "El nombre del puesto es obligatorio.";
-    if (!date) next.date = "La fecha de aplicación es obligatoria.";
+    if (!company.trim()) next.company = "Company name is required.";
+    if (!position.trim()) next.position = "Position title is required.";
+    if (!date) next.date = "Application date is required.";
     if (url.trim() && !isValidUrl(url.trim())) {
-      next.url = "Ingresa una URL válida (debe comenzar con http:// o https://).";
+      next.url = "Enter a valid URL (must start with http:// or https://).";
     }
     return next;
   }
@@ -74,14 +74,14 @@ export default function ApplicationForm({ initial, onSubmit }: ApplicationFormPr
           htmlFor="company"
           className="mb-1.5 block text-sm font-medium text-neutral-700"
         >
-          Empresa
+          Company
         </label>
         <input
           id="company"
           type="text"
           value={company}
           onChange={(e) => setCompany(e.target.value)}
-          placeholder="Ej. Acme Corp"
+          placeholder="E.g. Acme Corp"
           className={`h-11 w-full rounded-xl border-2 bg-white px-4 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 ${
             errors.company
               ? "border-red-400 focus:border-red-500"
@@ -98,14 +98,14 @@ export default function ApplicationForm({ initial, onSubmit }: ApplicationFormPr
           htmlFor="position"
           className="mb-1.5 block text-sm font-medium text-neutral-700"
         >
-          Puesto
+          Position
         </label>
         <input
           id="position"
           type="text"
           value={position}
           onChange={(e) => setPosition(e.target.value)}
-          placeholder="Ej. Desarrollador Frontend"
+          placeholder="E.g. Frontend Developer"
           className={`h-11 w-full rounded-xl border-2 bg-white px-4 text-sm text-neutral-800 outline-none transition placeholder:text-neutral-400 ${
             errors.position
               ? "border-red-400 focus:border-red-500"
@@ -119,12 +119,12 @@ export default function ApplicationForm({ initial, onSubmit }: ApplicationFormPr
 
       <div>
         <span className="mb-1.5 block text-sm font-medium text-neutral-700">
-          Fecha de aplicación
+          Application date
         </span>
         <DatePicker
           value={date}
           onChange={setDate}
-          placeholder="Seleccionar fecha"
+          placeholder="Select a date"
           inline
         />
         {errors.date && (
@@ -134,7 +134,7 @@ export default function ApplicationForm({ initial, onSubmit }: ApplicationFormPr
 
       <div>
         <span className="mb-1.5 block text-sm font-medium text-neutral-700">
-          Estado
+          Status
         </span>
         <StatusSelect value={status} onChange={setStatus} inline />
       </div>
@@ -144,8 +144,8 @@ export default function ApplicationForm({ initial, onSubmit }: ApplicationFormPr
           htmlFor="url"
           className="mb-1.5 block text-sm font-medium text-neutral-700"
         >
-          URL de la postulación
-          <span className="ml-1 text-neutral-400">(opcional)</span>
+          Application URL
+          <span className="ml-1 text-neutral-400">(optional)</span>
         </label>
         <input
           id="url"
@@ -167,7 +167,7 @@ export default function ApplicationForm({ initial, onSubmit }: ApplicationFormPr
           type="submit"
           className="rounded-xl bg-neutral-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-700"
         >
-          {initial ? "Guardar cambios" : "Registrar postulación"}
+          {initial ? "Save changes" : "Register application"}
         </button>
       </div>
     </form>

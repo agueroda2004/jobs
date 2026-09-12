@@ -126,10 +126,10 @@ function Jobs() {
   }) {
     if (editing) {
       updateApplication(editing.id, data);
-      show("success", `Postulación de ${data.company} actualizada`);
+      show("success", `Application for ${data.company} updated`);
     } else {
       createApplication(data);
-      show("success", `Postulación de ${data.company} registrada`);
+      show("success", `Application for ${data.company} registered`);
     }
     setFormOpen(false);
     setEditing(undefined);
@@ -137,13 +137,13 @@ function Jobs() {
 
   function handleStatusChange(id: string, status: ApplicationStatus) {
     updateApplication(id, { status });
-    show("success", `Estado actualizado a ${STATUSES[status].label}`);
+    show("success", `Status updated to ${STATUSES[status].label}`);
   }
 
   function handleDelete() {
     if (!deleting) return;
     deleteApplication(deleting.id);
-    show("success", `Postulación de ${deleting.company} eliminada`);
+    show("success", `Application for ${deleting.company} deleted`);
     setDeleting(undefined);
   }
 
@@ -156,7 +156,7 @@ function Jobs() {
               Jobs
             </h1>
             <p className="text-sm text-neutral-500">
-              Registra y sigue tus postulaciones de empleo
+              Track and manage your job applications
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -166,13 +166,13 @@ function Jobs() {
               className="inline-flex items-center gap-2 rounded-xl bg-neutral-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-700"
             >
               <PlusIcon className="h-4 w-4" />
-              Nueva postulación
+              New application
             </button>
             <button
               type="button"
               onClick={handleLogout}
-              aria-label="Cerrar sesión"
-              title="Cerrar sesión"
+              aria-label="Log out"
+              title="Log out"
               className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-neutral-200 text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-800"
             >
               <LogOutIcon className="h-4 w-4" />
@@ -201,11 +201,11 @@ function Jobs() {
             </div>
             <div>
               <h2 className="text-base font-semibold text-neutral-900">
-                Aún no tienes postulaciones
+                No applications yet
               </h2>
               <p className="mt-1 text-sm text-neutral-500">
-                Registra tu primera postulación para empezar a seguir tu
-                búsqueda laboral.
+                Register your first application to start tracking your job
+                search.
               </p>
             </div>
             <button
@@ -213,23 +213,23 @@ function Jobs() {
               onClick={openCreate}
               className="rounded-xl bg-neutral-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-700"
             >
-              Registrar postulación
+              Register application
             </button>
           </div>
         ) : filtered.length === 0 ? (
           <div className="rounded-2xl border-2 border-dashed border-neutral-300 bg-white px-6 py-16 text-center">
             <h2 className="text-base font-semibold text-neutral-900">
-              Sin resultados
+              No results
             </h2>
             <p className="mt-1 text-sm text-neutral-500">
-              No hay postulaciones que coincidan con los filtros actuales.
+              No applications match the current filters.
             </p>
           </div>
         ) : (
           <div className="flex flex-col gap-3">
             <p className="text-sm text-neutral-500">
               {filtered.length}{" "}
-              {filtered.length === 1 ? "postulación" : "postulaciones"}
+              {filtered.length === 1 ? "application" : "applications"}
             </p>
             {visibleItems.map((app) => (
               <ApplicationCard
@@ -256,7 +256,7 @@ function Jobs() {
 
       <Modal
         open={formOpen}
-        title={editing ? "Editar postulación" : "Nueva postulación"}
+        title={editing ? "Edit application" : "New application"}
         onClose={() => {
           setFormOpen(false);
           setEditing(undefined);
@@ -271,10 +271,10 @@ function Jobs() {
 
       <ConfirmDialog
         open={deleting !== undefined}
-        title="Eliminar postulación"
+        title="Delete application"
         message={
           deleting
-            ? `¿Seguro que quieres eliminar la postulación de ${deleting.company}? Esta acción no se puede deshacer.`
+            ? `Are you sure you want to delete the application for ${deleting.company}? This action cannot be undone.`
             : ""
         }
         onCancel={() => setDeleting(undefined)}

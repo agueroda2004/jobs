@@ -2,21 +2,21 @@ import { useEffect, useRef, useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "./icons";
 
 const MONTHS = [
-  "Enero",
-  "Febrero",
-  "Marzo",
-  "Abril",
-  "Mayo",
-  "Junio",
-  "Julio",
-  "Agosto",
-  "Septiembre",
-  "Octubre",
-  "Noviembre",
-  "Diciembre",
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 
-const DAYS_OF_WEEK = ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá"];
+const DAYS_OF_WEEK = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
 function daysInMonth(year: number, month: number): number {
   return new Date(year, month + 1, 0).getDate();
@@ -55,7 +55,7 @@ function toISO(date: Date): string {
 function formatDisplay(iso: string): string {
   const d = toDate(iso);
   if (!d) return "";
-  return `${d.getDate()} de ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+  return `${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
 }
 
 type Props = {
@@ -71,7 +71,7 @@ type Props = {
 export default function DatePicker({
   value,
   onChange,
-  placeholder = "Seleccionar fecha",
+  placeholder = "Select a date",
   disabled = false,
   maxDate,
   minDate,
@@ -406,7 +406,7 @@ export default function DatePicker({
             }}
             className="mt-2 w-full rounded-lg border border-neutral-200 px-3 py-1.5 text-xs font-medium text-neutral-500 transition hover:bg-neutral-50 hover:text-neutral-900"
           >
-            Hoy
+            Today
           </button>
         </div>
       )}

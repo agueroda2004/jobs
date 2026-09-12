@@ -35,7 +35,7 @@ export default function ApplicationCard({
           </p>
         )}
         <p className="mt-1.5 text-sm text-neutral-500">
-          Aplicaste el {formatLongDate(application.date)}
+          Applied on {formatLongDate(application.date)}
         </p>
       </div>
 
@@ -48,14 +48,14 @@ export default function ApplicationCard({
             className="inline-flex items-center gap-1.5 rounded-xl border border-neutral-300 px-3 py-2 text-sm font-medium text-neutral-700 transition hover:border-neutral-900 hover:text-neutral-900"
           >
             <ExternalLinkIcon className="h-4 w-4" />
-            Ver oferta
+            View offer
           </a>
         )}
         <button
           type="button"
           onClick={() => onEdit(application)}
           className="flex h-9 w-9 items-center justify-center rounded-xl border border-neutral-300 text-neutral-600 transition hover:border-neutral-900 hover:text-neutral-900"
-          aria-label={`Editar postulación de ${application.company}`}
+          aria-label={`Edit application for ${application.company}`}
         >
           <EditIcon className="h-4 w-4" />
         </button>
@@ -63,7 +63,7 @@ export default function ApplicationCard({
           type="button"
           onClick={() => onDelete(application)}
           className="flex h-9 w-9 items-center justify-center rounded-xl border border-neutral-300 text-neutral-600 transition hover:border-red-600 hover:bg-red-50 hover:text-red-600"
-          aria-label={`Eliminar postulación de ${application.company}`}
+          aria-label={`Delete application for ${application.company}`}
         >
           <TrashIcon className="h-4 w-4" />
         </button>
