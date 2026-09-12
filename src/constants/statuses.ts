@@ -50,4 +50,4 @@ export const STATUS_ORDER: ApplicationStatus[] = [
 
 export const DEFAULT_STATUS: ApplicationStatus = "enviada";
 
-export const STORAGE_KEY = "juniors-unidos-jobs-applications";
+export const STORAGE_KEY = "jobs-applications";
