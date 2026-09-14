@@ -1,10 +1,9 @@
 import { useMemo, useState } from "react";
 import type { Application, ApplicationStatus } from "./types";
-import { HashRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import { STATUSES, STATUS_ORDER } from "./constants/statuses";
 import { useApplications } from "./hooks/useApplications";
 import { useToast } from "./hooks/useToast";
-import { logout } from "./shared/auth";
 import AuthGuard from "./features/auth/components/AuthGuard";
 import LoginPage from "./features/auth/page/LoginPage";
 import FilterBar, {
@@ -17,7 +16,9 @@ import ToastContainer from "./components/ToastContainer";
 import Modal from "./components/ui/Modal";
 import ConfirmDialog from "./components/ui/ConfirmDialog";
 import Pagination from "./components/ui/Pagination";
-import { LogOutIcon, PlusIcon } from "./components/ui/icons";
+import { PlusIcon } from "./components/ui/icons";
+import CvReviewPage from "./features/cv-review/page/CvReviewPage";
+import AppShell from "./components/AppShell";
 
 const PAGE_SIZE = 20;
 
@@ -26,6 +27,14 @@ export default function App() {
     <HashRouter>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/cv-review"
+          element={
+            <AuthGuard>
+              <CvReviewPage />
+            </AuthGuard>
+          }
+        />
         <Route
           path="*"
           element={
@@ -48,8 +57,6 @@ function Jobs() {
     loading,
   } = useApplications();
   const { toasts, show, dismiss } = useToast();
-  const navigate = useNavigate();
-
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("todas");
   const [sort, setSort] = useState<SortOrder>("asc");
@@ -116,11 +123,6 @@ function Jobs() {
     setFormOpen(true);
   }
 
-  function handleLogout() {
-    logout();
-    navigate("/login");
-  }
-
   function openEdit(application: Application) {
     setEditing(application);
     setFormOpen(true);
@@ -157,39 +159,7 @@ function Jobs() {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-50 text-neutral-900">
-      <header className="border-b border-neutral-200 bg-white">
-        <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-5 sm:px-6">
-          <div>
-            <h1 className="text-xl font-bold tracking-tight text-neutral-900">
-              Jobs
-            </h1>
-            <p className="text-sm text-neutral-500">
-              Track and manage your job applications
-            </p>
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={openCreate}
-              className="inline-flex items-center gap-2 rounded-xl bg-neutral-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-700"
-            >
-              <PlusIcon className="h-4 w-4" />
-              New application
-            </button>
-            <button
-              type="button"
-              onClick={handleLogout}
-              aria-label="Log out"
-              title="Log out"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-neutral-200 text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-800"
-            >
-              <LogOutIcon className="h-4 w-4" />
-            </button>
-          </div>
-        </div>
-      </header>
-
+    <AppShell>
       <main className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
         <section className="mb-8">
           <FilterBar
@@ -291,6 +261,6 @@ function Jobs() {
       />
 
       <ToastContainer toasts={toasts} onDismiss={dismiss} />
-    </div>
+    </AppShell>
   );
 }
