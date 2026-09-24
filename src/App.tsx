@@ -161,6 +161,19 @@ function Jobs() {
   return (
     <AppShell>
       <main className="mx-auto max-w-3xl px-4 py-8 sm:px-6">
+        <div className="mb-6 flex items-center justify-between gap-4">
+          <h1 className="text-xl font-bold tracking-tight text-neutral-900">
+            Applications
+          </h1>
+          <button
+            type="button"
+            onClick={openCreate}
+            className="shrink-0 rounded-xl bg-neutral-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-700"
+          >
+            Register application
+          </button>
+        </div>
+
         <section className="mb-8">
           <FilterBar
             search={search}
@@ -187,13 +200,6 @@ function Jobs() {
                 search.
               </p>
             </div>
-            <button
-              type="button"
-              onClick={openCreate}
-              className="rounded-xl bg-neutral-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-700"
-            >
-              Register application
-            </button>
           </div>
         ) : filtered.length === 0 ? (
           <div className="rounded-2xl border-2 border-dashed border-neutral-300 bg-white px-6 py-16 text-center">
